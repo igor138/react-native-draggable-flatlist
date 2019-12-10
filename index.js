@@ -208,8 +208,8 @@ class SortableFlatList extends Component {
       const shouldScrollUp = !isFirstItem && fingerPosition < (this._containerSize * scrollRatio)
       const shouldScrollDown = !isLastItem && fingerPosition > (this._containerSize * (1 - scrollRatio))
       let acceleration = 1;
-      if (this._containerSize && scrollRatio && scrollAccelerator > 1) {
-        const distanceToEdge = shouldScrollUp ? (this._containerSize - fingerPosition) : fingerPosition
+      if ((shouldScrollUp || shouldScrollDown) && this._containerSize && scrollRatio && scrollAccelerator > 1) {
+        const distanceToEdge = shouldScrollDown ? (this._containerSize - fingerPosition) : fingerPosition
         const positionRatio = distanceToEdge / this._containerSize
         acceleration = (scrollRatio - positionRatio) / scrollRatio * scrollAccelerator
       }
